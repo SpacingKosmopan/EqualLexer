@@ -1,4 +1,6 @@
 void main() throws IOException {
+    Sregex sregex = Sregex.raw("$d*3$d");
+
     Path srcPath = Path.of("src.eql");
     if (!Files.exists(srcPath, LinkOption.NOFOLLOW_LINKS)) {
         System.out.println("[!] Source file does not exist!");
@@ -15,6 +17,7 @@ void main() throws IOException {
 
     while (pos < chars.length) {
         char c = chars[pos];
+
 
         pos++;
     }
