@@ -58,7 +58,7 @@ public class Sregex {
 
                         i++;
                         c = charArray[i];
-                        while (Character.isDigit(c) && i < charArray.length) {
+                        while (i < charArray.length && Character.isDigit(c)) {
 
                             //System.out.println(c+"->"+Character.isDigit(c)+" digit");
                             amount += c;
