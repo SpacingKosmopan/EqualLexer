@@ -8,7 +8,7 @@ public class Sregex {
         return new Sregex(combination);
     }
 
-    public Sregex(String combination) {
+    private Sregex(String combination) {
         this.combination = combination;
         try {
             decryptedTokens = decrypt(combination);
