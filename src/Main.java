@@ -1,6 +1,14 @@
 // localization
 // C:\Users\Komputer\IdeaProjects\interpretator
 void main() throws IOException {
+    SchemasFactory schema = new SchemasFactory();
+    SchemasFactory.Schema localSchema = SchemasFactory.Schema.builder().eol().build();
+    System.out.println(schema.variable);
+    System.out.println(localSchema);
+    System.out.println(SchemasFactory.variableDeclarationAssignment);
+
+    ///
+
     Sregex sregex = Sregex.raw("$L$l$d$l*3");
     System.out.println("Sregex test: __" + sregex.test("Hl5pp") + "__");
 
