@@ -1,8 +1,8 @@
 // localization
 // C:\Users\Komputer\IdeaProjects\interpretator
 void main() throws IOException {
-    Sregex sregex = Sregex.raw("$L");
-    System.out.println("Sregex test: __" + sregex.test("H") + "__");
+    Sregex sregex = Sregex.raw("$L$l$d$l*3");
+    System.out.println("Sregex test: __" + sregex.test("Hl5pp") + "__");
 
     Path srcPath = Path.of("src.eql");
     if (!Files.exists(srcPath, LinkOption.NOFOLLOW_LINKS)) {

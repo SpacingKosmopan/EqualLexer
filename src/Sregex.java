@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class Sregex {
         this.combination = combination;
         try {
             decryptedTokens = decrypt(combination);
+            System.out.println("decryptedTokens: ");
             decryptedTokens.forEach(element -> {
                 System.out.println("\t[+]" + element.token.toString() + "*" + element.amount);
             });
@@ -24,13 +26,19 @@ public class Sregex {
         }
     }
 
+    static final EnumSet<Tokens> TOKENS_WITH_AMOUNT =
+            EnumSet.of(
+                    Tokens.digit,
+                    Tokens.letter,
+                    Tokens.bigLetter
+            );
+
     ArrayList<Element> decrypt(String combination) throws Exception {
         char[] charArray = combination.toCharArray();
         ArrayList<Element> tokens = new ArrayList<>();
 
         for (int i = 0; i < charArray.length; i++) {
             char c = charArray[i];
-            System.out.println("Checking " + c);
             if (c == '$') {
                 // predefinied token expected
                 i++;
@@ -54,7 +62,7 @@ public class Sregex {
 
                 if (!tokens.isEmpty()) {
 
-                    if (tokens.getLast().token == Tokens.digit && tokens.getLast().token != Tokens.amount) {
+                    if (TOKENS_WITH_AMOUNT.contains(tokens.getLast().token) && tokens.getLast().token != Tokens.amount) {
                         //System.out.println("[i] Checking amount");
                         String amount = "";
 
@@ -79,8 +87,8 @@ public class Sregex {
                         }
 
                         tokens.getLast().setAmount(Integer.parseInt(amount));
-                    } else System.out.println("[E] #002");
-                } else System.out.println("[E] #001");
+                    } else System.out.println("[E] #002 amount follows wrong token");
+                } else System.out.println("[E] #001 tokens list is empty");
 
             }
         }
@@ -90,9 +98,16 @@ public class Sregex {
     public boolean test(String target) {
         if (decryptedTokens.isEmpty()) return false;
         char[] charArray = target.toCharArray();
+
+        System.out.println("Read chars to test: ");
+        for (int i = 0; i < charArray.length; i++) {
+            System.out.println("\t[?]" + charArray[i]);
+        }
+
         int characterNumber = 0;
         for (var token : decryptedTokens) { // e.x. two tokens: 2 digit number, 1 letter
             for (int i = 0; i < token.amount; i++) {
+
                 if (charArray.length <= characterNumber) return false;
                 boolean tested = testChar(charArray[characterNumber], token.token);
                 System.out.println(
@@ -101,16 +116,14 @@ public class Sregex {
                                 + charArray[characterNumber]
                                 + " " + tested
                 );
-                if (tested) {
-                    characterNumber++;
-                } else return false;
+                characterNumber++;
+                if (!tested)
+                    return false;
             }
-            characterNumber++;
+
         }
         //System.out.println("[i] " + characterNumber + "-" + charArray.length);
-        if (characterNumber <= charArray.length) return false;
-
-        return true;
+        return characterNumber == charArray.length;
     }
 
     public boolean testChar(char c, Tokens token) {
