@@ -20,9 +20,9 @@ void main() throws IOException {
     String source = Files.readString(Path.of("src.eql"));
     if (source.isEmpty()) {
         System.out.println("[!] Source file is empty");
-        return;
+        //  return;
     }
-    char[] chars = source.toCharArray();
+    /*char[] chars = source.toCharArray();
 
     int pos = 0;
 
@@ -30,5 +30,17 @@ void main() throws IOException {
         char c = chars[pos];
 
         pos++;
+    }*/
+
+    String[] words = source.trim().split("\\s+");
+
+    for (String word : words) {
+        System.out.println(word);
     }
+
+    // lepiej czytać znak po znaku i wtedy
+    // now->camelName
+    // albo now->Snakename
+    // while (Character.isLetter(c)) now is camelName
+    // if (c == (char)Types.Equal) now is assignement czy coś tam
 }
