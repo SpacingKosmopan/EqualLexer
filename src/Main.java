@@ -1,3 +1,5 @@
+// localization
+// C:\Users\Komputer\IdeaProjects\interpretator
 void main() throws IOException {
     Sregex sregex = Sregex.raw("$d*3$d");
 
