@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sregex {
     String combination;
@@ -39,6 +41,9 @@ public class Sregex {
                         break;
                     case 'l':
                         tokens.add(new Element(Tokens.letter));
+                        break;
+                    case 'L':
+                        tokens.add(new Element(Tokens.bigLetter));
                         break;
                     default: {
                         throw new Exception("[$#01] Unidentified predefinied token exception - '" + c + "'");
@@ -102,7 +107,7 @@ public class Sregex {
             }
             characterNumber++;
         }
-        System.out.println("[i] " + characterNumber + "-" + charArray.length);
+        //System.out.println("[i] " + characterNumber + "-" + charArray.length);
         if (characterNumber <= charArray.length) return false;
 
         return true;
@@ -112,6 +117,7 @@ public class Sregex {
         return switch (token) {
             case digit -> Character.isDigit(c);
             case letter -> Character.isLetter(c);
+            case bigLetter -> Character.isUpperCase(c) && Character.isLetter(c);
             default -> false;
         };
     }
@@ -120,6 +126,7 @@ public class Sregex {
         digit, // $d
         amount, // *n
         letter, // $l
+        bigLetter, // $L
     }
 
     class Element {
