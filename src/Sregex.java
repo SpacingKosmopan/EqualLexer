@@ -52,7 +52,7 @@ public class Sregex {
 
             } else if (c == '*') {
 
-                if (tokens.size() != 0) {
+                if (!tokens.isEmpty()) {
 
                     if (tokens.getLast().token == Tokens.digit && tokens.getLast().token != Tokens.amount) {
                         //System.out.println("[i] Checking amount");
@@ -78,7 +78,7 @@ public class Sregex {
                                 throw new Exception("[*#03] At least one amount token is invalid");
                         }
 
-                        tokens.get(tokens.size() - 1).setAmount(Integer.parseInt(amount));
+                        tokens.getLast().setAmount(Integer.parseInt(amount));
                     } else System.out.println("[E] #002");
                 } else System.out.println("[E] #001");
 

@@ -10,7 +10,7 @@ void main() throws IOException {
         return;
     }
     String source = Files.readString(Path.of("src.eql"));
-    if (source.equals("")) {
+    if (source.isEmpty()) {
         System.out.println("[!] Source file is empty");
         return;
     }
