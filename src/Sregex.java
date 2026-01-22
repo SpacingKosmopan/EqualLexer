@@ -36,10 +36,12 @@ public class Sregex {
                 switch (c) {
                     case 'd':
                         tokens.add(new Element(Tokens.digit));
-
+                        break;
+                    case 'l':
+                        tokens.add(new Element(Tokens.letter));
                         break;
                     default: {
-                        throw new Exception("[c#01] Unidentified predefinied token exception - '" + c + "'");
+                        throw new Exception("[$#01] Unidentified predefinied token exception - '" + c + "'");
                     }
                 }
 
@@ -47,7 +49,7 @@ public class Sregex {
 
                 if (tokens.size() != 0) {
 
-                    if (tokens.get(tokens.size() - 1).token == Tokens.digit && tokens.get(tokens.size() - 1).token != Tokens.amount) {
+                    if (tokens.getLast().token == Tokens.digit && tokens.getLast().token != Tokens.amount) {
                         //System.out.println("[i] Checking amount");
                         String amount = "";
 
@@ -58,14 +60,12 @@ public class Sregex {
 
                         i++;
                         c = charArray[i];
-                        while (i < charArray.length && Character.isDigit(c)) {
-
-                            //System.out.println(c+"->"+Character.isDigit(c)+" digit");
-                            amount += c;
+                        while (i < charArray.length && Character.isDigit(charArray[i])) {
+                            amount += charArray[i];
                             i++;
-                            c = charArray[i];
                         }
-                        i--;
+                        i--; // cofnięcie, bo for-loop też zrobi i++
+
                         System.out.println("Found amount: " + amount);
 
                         for (char singleC : amount.toCharArray()) {
@@ -83,13 +83,43 @@ public class Sregex {
     }
 
     public boolean test(String target) {
+        if (decryptedTokens.isEmpty()) return false;
         char[] charArray = target.toCharArray();
-        return false;
+        int characterNumber = 0;
+        for (var token : decryptedTokens) { // e.x. two tokens: 2 digit number, 1 letter
+            for (int i = 0; i < token.amount; i++) {
+                if (charArray.length <= characterNumber) return false;
+                boolean tested = testChar(charArray[characterNumber], token.token);
+                System.out.println(
+                        token.token.toString()
+                                + "-"
+                                + charArray[characterNumber]
+                                + " " + tested
+                );
+                if (tested) {
+                    characterNumber++;
+                } else return false;
+            }
+            characterNumber++;
+        }
+        System.out.println("[i] " + characterNumber + "-" + charArray.length);
+        if (characterNumber <= charArray.length) return false;
+
+        return true;
+    }
+
+    public boolean testChar(char c, Tokens token) {
+        return switch (token) {
+            case digit -> Character.isDigit(c);
+            case letter -> Character.isLetter(c);
+            default -> false;
+        };
     }
 
     enum Tokens {
         digit, // $d
-        amount // *n
+        amount, // *n
+        letter, // $l
     }
 
     class Element {

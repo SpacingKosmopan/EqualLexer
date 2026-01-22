@@ -1,7 +1,8 @@
 // localization
 // C:\Users\Komputer\IdeaProjects\interpretator
 void main() throws IOException {
-    Sregex sregex = Sregex.raw("$d*3$d");
+    Sregex sregex = Sregex.raw("$d*2");
+    System.out.println("Sregex test: __" + sregex.test("12") + "__");
 
     Path srcPath = Path.of("src.eql");
     if (!Files.exists(srcPath, LinkOption.NOFOLLOW_LINKS)) {
@@ -20,8 +21,6 @@ void main() throws IOException {
     while (pos < chars.length) {
         char c = chars[pos];
 
-
         pos++;
     }
-
 }
