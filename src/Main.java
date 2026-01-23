@@ -22,21 +22,78 @@ void main() throws IOException {
         System.out.println("[!] Source file is empty");
         //  return;
     }
-    /*char[] chars = source.toCharArray();
+    char[] chars = source.toCharArray();
 
     int pos = 0;
 
+    ArrayList<ArrayList<CommandElement>> commands = new ArrayList<>();
+    commands.add(new ArrayList<CommandElement>());
+    int commandCount = 0;
+    Sregex.Token lastReadToken = null;
+    String readContains = "";
+
     while (pos < chars.length) {
         char c = chars[pos];
-
+        System.out.println("Reading char '" + c + "'");
+        if (c == ' ' && lastReadToken != null) {
+            commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+            readContains = "";
+            lastReadToken = null;
+        }
+        else if (c == ';' && lastReadToken != null){
+            System.out.println("End of Line");
+            commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+            readContains = "";
+            commandCount++;
+            commands.add(new ArrayList<CommandElement>());
+            lastReadToken = null;
+        }
+        else {
+            readContains += c + "";
+            Sregex.Token nowReadingToken = Sregex.identToken(c);
+            if (lastReadToken == null)
+                lastReadToken = nowReadingToken;
+            else if (nowReadingToken != lastReadToken) 
+            {
+                System.out.println("Reading token has changed");
+                commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+                readContains = "";
+                lastReadToken = nowReadingToken;
+            }
+        }
+        
         pos++;
-    }*/
+    }
 
-    String[] words = source.trim().split("\\s+");
+enum Reads {
+    Value, // digit|word
+    ArithmeticSign, // +-/*
+    EOL, // ;
+}
+
+class CommandElement {
+    Reads elementType;
+    String contents;
+
+    public CommandElement(Reads type, String content){
+        this.elementType=type;
+        this.contents=content;
+    }
+
+    public void setElement(Reads type){
+        this.elementType=type;
+    }
+
+    public void setElement(String content){
+        this.contents=content;
+    }
+}
+
+    /*String[] words = source.trim().split("\\s+");
 
     for (String word : words) {
         System.out.println(word);
-    }
+    }*/
 
     // lepiej czytać znak po znaku i wtedy
     // now->camelName
