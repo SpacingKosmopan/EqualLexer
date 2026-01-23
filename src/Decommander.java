@@ -22,50 +22,38 @@ public class Decommander {
         }
     }
 
-    public void decommand() {
+    public ArrayList<ArrayList<CommandElement>> decommand() {
         String source = getSource("src.eql");
         if (source.equals("")) {
             System.out.println("[!] Source file is empty!");
-            return;
+            return null;
         }
 
-        GenerateCommands(source);
+        return GenerateCommands(source);
     }
 
-    enum Reads {
-        Value, // digit|word
-        camelName,
-        Increment,
-        Decrement,
-        Multiplication,
-        Division,
-        EOL, // ;
-        White // space or sth
-    }
-
-
-    Map<Character, Reads> signs = new HashMap<>() {{
-        put('+', Reads.Increment);
+    Map<Character, SchemasFactory.CommandElements> signs = new HashMap<>() {{
+        put('+', SchemasFactory.CommandElements.Increment);
     }};
 
-    Reads identToken(char c) {
-        if (c == ' ') return Reads.White;
-        if (c == ';') return Reads.EOL;
-        if(signs.containsKey(c))return signs.get(c);
-        if (Character.isDigit(c) || Character.isLetter(c)) return Reads.Value;
-        return Reads.White;
+    SchemasFactory.CommandElements identToken(char c) {
+        if (c == ' ') return SchemasFactory.CommandElements.White;
+        if (c == ';') return SchemasFactory.CommandElements.EOL;
+        if (signs.containsKey(c)) return signs.get(c);
+        if (Character.isDigit(c) || Character.isLetter(c)) return SchemasFactory.CommandElements.Value;
+        return SchemasFactory.CommandElements.White;
     }
 
     class CommandElement {
-        Reads elementType;
+        SchemasFactory.CommandElements elementType;
         String contents;
 
-        public CommandElement(Reads type, String content) {
+        public CommandElement(SchemasFactory.CommandElements type, String content) {
             this.elementType = type;
             this.contents = content;
         }
 
-        public void setElement(Reads type) {
+        public void setElement(SchemasFactory.CommandElements type) {
             this.elementType = type;
         }
 
@@ -74,16 +62,13 @@ public class Decommander {
         }
     }
 
-
-
-
-    void GenerateCommands(String source) {
+    ArrayList<ArrayList<CommandElement>> GenerateCommands(String source) {
         char[] chars = source.toCharArray();
 
         ArrayList<ArrayList<CommandElement>> commands = new ArrayList<>();
         commands.add(new ArrayList<CommandElement>());
         int commandCount = 0;
-        Reads lastReadToken = null;
+        SchemasFactory.CommandElements lastReadToken = null;
         String readContains = "";
         int pos = 0;
         String message = "";
@@ -91,21 +76,21 @@ public class Decommander {
         while (pos < chars.length) {
             char c = chars[pos];
             System.out.println("Reading char '" + c + "'");
-            if (c == ' ' && lastReadToken != null) {
-                commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+            if (Character.isWhitespace(c)) {
                 readContains = "";
                 lastReadToken = null;
             } else if (c == ';' && lastReadToken != null) {
                 System.out.println("End of Line");
                 commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+                commands.get(commandCount).add(new CommandElement(SchemasFactory.CommandElements.EOL, readContains));
                 readContains = "";
                 commandCount++;
                 commands.add(new ArrayList<CommandElement>());
                 lastReadToken = null;
-                message += "\t" + Reads.EOL;
+                message += "\t" + SchemasFactory.CommandElements.EOL + "\n";
             } else {
                 readContains += c + "";
-                Reads nowReadingToken = identToken(c);
+                SchemasFactory.CommandElements nowReadingToken = identToken(c);
                 message += "\t" + nowReadingToken;
                 if (lastReadToken == null)
                     lastReadToken = nowReadingToken;
@@ -120,6 +105,7 @@ public class Decommander {
             pos++;
         }
         System.out.println(message);
+        return commands;
     }
 
     /*String[] words = source.trim().split("\\s+");
