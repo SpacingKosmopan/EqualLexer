@@ -8,9 +8,6 @@ import java.util.List;
 /// (Tokens.Type, Tokens.Declaration, Tokens.camelName, Tokens.Assign, Tokens.Value, Tokens.EOL);</code></pre>
 public class SchemasFactory {
 
-    public static final Schema variableDeclarationAssignment = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.Assign, CommandElements.Value, CommandElements.EOL);
-    Schema variableDeclaration = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.EOL);
-    Schema variable = Schema.builder().nameCamel().eol().build();
 
     public enum CommandElements {
         Type, // int
@@ -19,9 +16,45 @@ public class SchemasFactory {
         Assign, // =
         Value, // $d+$l+$L+
         EOL, // ;
+        Increment,
+        Decreament,
+        Division,
+        Multiplication,
+        White,
     }
 
-    //public Schema identSchema(CommandElements... commands) { }
+    public static Schema identSchema(ArrayList<Decommander.CommandElement> commands) {
+        final Schema variableDeclarationAssignment = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.Assign, CommandElements.Value, CommandElements.EOL);
+        final Schema variableDeclaration = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.EOL);
+        final Schema variable = Schema.builder().nameCamel().eol().build();
+        final Schema tempIncrement = new Schema.Builder().value().arithmeticSign().value().eol().build();
+
+        ArrayList<Schema> schemas = new ArrayList<>() {
+            {
+                add(variableDeclarationAssignment);
+                add(variableDeclaration);
+                add(variable);
+                add(tempIncrement);
+            }
+        };
+
+        for (int i = 0; i < schemas.size(); i++) {
+            Schema schema = schemas.get(i);
+            if (schema.commandsOrder.size() != commands.size()) {
+                continue;
+            }
+            boolean thisIsThis = true;
+            for (int j = 0; j < commands.size(); j++) {
+                if (commands.get(j).elementType != schema.commandsOrder.get(j)) {
+                    thisIsThis = false;
+                }
+            }
+            if (thisIsThis) {
+                return schema;
+            }
+        }
+        return null;
+    }
 
     static class Schema {
         final List<CommandElements> commandsOrder;
@@ -75,6 +108,11 @@ public class SchemasFactory {
 
             public Builder eol() {
                 elements.add(CommandElements.EOL);
+                return this;
+            }
+
+            public Builder arithmeticSign() {
+                elements.add(CommandElements.Increment);
                 return this;
             }
 
