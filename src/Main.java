@@ -29,7 +29,7 @@ void main() throws IOException {
     ArrayList<ArrayList<CommandElement>> commands = new ArrayList<>();
     commands.add(new ArrayList<CommandElement>());
     int commandCount = 0;
-    Sregex.Token lastReadToken = null;
+    Reads lastReadToken = null;
     String readContains = "";
 
     while (pos < chars.length) {
@@ -50,7 +50,7 @@ void main() throws IOException {
         }
         else {
             readContains += c + "";
-            Sregex.Token nowReadingToken = Sregex.identToken(c);
+            Reads nowReadingToken = identToken(c);
             if (lastReadToken == null)
                 lastReadToken = nowReadingToken;
             else if (nowReadingToken != lastReadToken) 
@@ -69,6 +69,11 @@ enum Reads {
     Value, // digit|word
     ArithmeticSign, // +-/*
     EOL, // ;
+    White, // space or sth
+}
+
+Reads identToken(char c){
+    return c == ' ' ? Reads.White : Character.isDigit(c) || Character.isLetter(c) ? Reads.Value : c == ';' ? Reads.EOL : Reads.White;
 }
 
 class CommandElement {
