@@ -21,19 +21,16 @@ void main() throws IOException {
     } else {
         commandsList.stream().forEach((commandSet) -> {
             if (!commandSet.isEmpty()) {
-                System.out.print("[+]");
-                commandSet.stream().forEach((command) -> {
-                    System.out.print("-> " + command.elementType);
-                });
-                System.out.println();
-
                 SchemasFactory.Schema temp = SchemasFactory.identSchema(commandSet);
-                if (temp != null)
-                    System.out.println("[:)] Success!");
-                else System.out.println("[!] Error with schema identification!");
+                if (temp != null) {
+                    System.out.println("[:)] Success! - " + temp.toString());
+                    PerformSchema(temp, commandSet);
+                } else System.out.println("[!] Error with schema identification!");
             }
         });
     }
+
+
 
     /*Map<String, Integer> map = new HashMap<>();
     map.put("A", 1);
@@ -43,4 +40,29 @@ void main() throws IOException {
         System.out.println(e.getKey());
         System.out.println(e.getValue());
     }*/
+}
+
+void PerformSchema(SchemasFactory.Schema schema, ArrayList<Decommander.CommandElement> commandSet) {
+    if (schema.equals(SchemasFactory.tempIncrement)) {
+        int a = Integer.parseInt(commandSet.get(0).contents);
+        String op = commandSet.get(1).contents;
+        int b = Integer.parseInt(commandSet.get(2).contents);
+
+        int result = switch (op) {
+            case "+" -> a + b;
+            case "-" -> a - b;
+            default -> throw new RuntimeException("Unknown operator");
+        };
+
+        System.out.println(result);
+    }
+
+}
+
+Number parseNumber(String contents) throws NumberFormatException {
+    try {
+        return Integer.parseInt(contents);
+    } catch (NumberFormatException e) {
+        return Double.parseDouble(contents);
+    }
 }

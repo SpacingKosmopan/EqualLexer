@@ -8,7 +8,6 @@ import java.util.List;
 /// (Tokens.Type, Tokens.Declaration, Tokens.camelName, Tokens.Assign, Tokens.Value, Tokens.EOL);</code></pre>
 public class SchemasFactory {
 
-
     public enum CommandElements {
         Type, // int
         Declaration, // ==
@@ -22,6 +21,11 @@ public class SchemasFactory {
         Multiplication,
         White,
     }
+
+    static final Schema variableDeclarationAssignment = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.Assign, CommandElements.Value, CommandElements.EOL);
+    static final Schema variableDeclaration = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.EOL);
+    static final Schema variable = Schema.builder().nameCamel().eol().build();
+    static final Schema tempIncrement = new Schema.Builder().value().arithmeticSign().value().eol().build();
 
     public static Schema identSchema(ArrayList<Decommander.CommandElement> commands) {
         final Schema variableDeclarationAssignment = new Schema(CommandElements.Type, CommandElements.Declaration, CommandElements.camelName, CommandElements.Assign, CommandElements.Value, CommandElements.EOL);
@@ -65,6 +69,20 @@ public class SchemasFactory {
 
         public Schema(List<CommandElements> commandsOrder) {
             this.commandsOrder = commandsOrder;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Schema schema = (Schema) o;
+            return commandsOrder.equals(schema.commandsOrder);
+        }
+
+        @Override
+        public int hashCode() {
+            return commandsOrder.hashCode();
         }
 
         @Override

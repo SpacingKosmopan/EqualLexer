@@ -89,17 +89,21 @@ public class Decommander {
                 lastReadToken = null;
                 message += "\t" + SchemasFactory.CommandElements.EOL + "\n";
             } else {
-                readContains += c + "";
                 SchemasFactory.CommandElements nowReadingToken = identToken(c);
-                message += "\t" + nowReadingToken;
-                if (lastReadToken == null)
-                    lastReadToken = nowReadingToken;
-                else if (nowReadingToken != lastReadToken) {
+
+                if (lastReadToken != null && nowReadingToken != lastReadToken) {
                     System.out.println("Reading token has changed");
-                    commands.get(commandCount).add(new CommandElement(lastReadToken, readContains));
+                    commands.get(commandCount)
+                            .add(new CommandElement(lastReadToken, readContains));
                     readContains = "";
                     lastReadToken = nowReadingToken;
                 }
+
+                readContains += c;
+
+                message += "\t" + nowReadingToken;
+                if (lastReadToken == null)
+                    lastReadToken = nowReadingToken;
             }
 
             pos++;
