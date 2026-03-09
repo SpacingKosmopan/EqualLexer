@@ -9,3 +9,6 @@
 // wykonuj dopóki x jest większe bądź równe zero
 `@:x+1$1`
 // wykonuj dopóki x jest większe od zera
+
+https://esolangs.org/wiki/Geom%2B%2B
+https://esolangs.org/wiki/DBFV!
