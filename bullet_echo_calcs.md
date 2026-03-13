@@ -23,3 +23,13 @@ Factory pozioma decha - 80 d
 -density = ((80/3553)*43)-43
 Density = 42
 
+Łuk factory - 1321 d
+-density = ((1321/3553)*43)-42
+Density = 27
+
+Środek koło w asument park - 659 d
+
+Kwadratowy ciuciek w rogu asument park - 1900 d
+
+Dungeon 42 piercing zewnętrzna ściana - 590 d
+Density = 35 ZGADZA SIĘ 
