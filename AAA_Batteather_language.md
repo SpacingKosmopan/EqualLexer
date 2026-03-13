@@ -1,8 +1,8 @@
 ## Variable decralation
 `$var:7^int;`
+// dla nazwy "var" przypisz wartość 7 czyli to liczba całkowita
 ### Działanie matematyczne
 zawsze w `{}`
-// dla nazwy "var" przypisz wartość 7 czyli to liczba całkowita
 
 ## Loop declaration
 `@i:<2-4)`
