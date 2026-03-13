@@ -1,7 +1,7 @@
-Slayer piercing power: 33 + 10 on thermal = 43
-Wzór: after = base * ((piercing - density) / piercing)
-After / base = (piercing – density) / piercing
-(after / base) * piercing = piercing – density
+Slayer piercing power: 33 + 10 on thermal = 43<br>
+Wzór: after = base * ((piercing - density) / piercing)<br>
+After / base = (piercing – density) / piercing<br>
+(after / base) * piercing = piercing – density<br>
 -Density = ((after / base) * piercing) – piercing
 
 Damage bez penetracji ścian – 3553 d
@@ -31,5 +31,5 @@ Factory pozioma decha - 80 d
 
 Kwadratowy ciuciek w rogu asument park - 1900 d
 
-Dungeon 42 piercing zewnętrzna ściana - 590 d
+Dungeon 42 piercing zewnętrzna ściana - 590 d<br>
 `Density = 35` ZGADZA SIĘ 
