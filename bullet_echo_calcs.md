@@ -9,27 +9,27 @@ Damage bez penetracji ścian – 3553 d
 
 Zewnętrzna ściana pączka (z wejściem lub bez, plus samo wejście) – 659 d
 -density = ((659/3553)*43)-43
-Density = 35
+Density = 35`
 
 Pięciokąt domek sewerage – 2474 d
 -density = ((2474/3553)*43)-43
-Density = 13
+`Density = 13`
 
 Pudełka obok domku - 1900 d
 -density = ((1900/3553)*43)-43
-Density = 20
+`Density = 20`
 
 Factory pozioma decha - 80 d
 -density = ((80/3553)*43)-43
-Density = 42
+`Density = 42`
 
 Łuk factory - 1321 d
 -density = ((1321/3553)*43)-42
-Density = 27
+`Density = 27`
 
 Środek koło w asument park - 659 d
 
 Kwadratowy ciuciek w rogu asument park - 1900 d
 
 Dungeon 42 piercing zewnętrzna ściana - 590 d
-Density = 35 ZGADZA SIĘ 
+`Density = 35` ZGADZA SIĘ 
