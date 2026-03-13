@@ -46,6 +46,7 @@ Baba Yaga = 11 pipercing resistance<br>
 <u>2794</u> babie<br>
 <u>2671</u> neci<br>
 2671 / 2794 = 95.5%<br>
+95.5 * 43 = 41 piecing power<br>
 43 - 11 = 32<br>
 32 / 43 = 74,5%<br>
 
@@ -54,11 +55,18 @@ Baba Yaga = 11 pipercing resistance<br>
 <u>2807</u> babie<br>
 <u>2650</u> neci<br>
 2807 / 2650 = 94.5%<br>
+0.945 * 42 = 39.69 (dojdzie do tych 40)<br>
 42 - 11 = 31<br>
 31 / 42 = 74%<br>
+74% * 2807 = <br>
 
 ### Scenariusz 3
 43 piercing power
 wall density = ? || 0;
 <u>2337</u> babie<br>
 <u>2087</u> neci<br>
+
+# Podsumowanie
+Wygląda na to, że density obowiązuje tylko w przypadku ścian - ściana ma density i jest to bezpośrednio odejmowane od piercing power. <br>
+ALE jeżeli chodzi o graczy tp jest inaczej. według moich obliczeń, gdy pocisk przejdzie przez postać, to traci on 2 na piercing power.<br>
+Piercing resistance jest tylko po to, żeby powiedzieć, czy pocisk może przebić.
