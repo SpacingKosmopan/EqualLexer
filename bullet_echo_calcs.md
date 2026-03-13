@@ -64,7 +64,10 @@ Baba Yaga = 11 pipercing resistance<br>
 43 piercing power
 wall density = ? || 0;
 <u>2337</u> babie<br>
+`Density =+- 7`
 <u>2087</u> neci<br>
+2087 / 2337 = 90%<br>
+0.9 * 43 = 38,7 -> 39 (-4)<br>
 
 # Podsumowanie
 Wygląda na to, że density obowiązuje tylko w przypadku ścian - ściana ma density i jest to bezpośrednio odejmowane od piercing power. <br>
