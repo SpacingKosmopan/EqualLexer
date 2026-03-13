@@ -11,6 +11,15 @@ Zewnętrzna ściana pączka (z wejściem lub bez, plus samo wejście) – 659 d
 -density = ((659/3553)*43)-43
 Density = 35
 
-Pięciokąt domek – 2474 d
+Pięciokąt domek sewerage – 2474 d
 -density = ((2474/3553)*43)-43
 Density = 13
+
+Pudełka obok domku - 1900 d
+-density = ((1900/3553)*43)-43
+Density = 20
+
+Factory pozioma decha - 80 d
+-density = ((80/3553)*43)-43
+Density = 42
+
