@@ -3,6 +3,7 @@ Wzór: after = base * ((piercing - density) / piercing)<br>
 After / base = (piercing – density) / piercing<br>
 (after / base) * piercing = piercing – density<br>
 -Density = ((after / base) * piercing) – piercing
+Density = - 1 * ((after / base) * piercing) - piercing
 
 Damage bez penetracji ścian – 3553 d
 1911 h + 1917 a = 3528 d ~ +28 on damage => 3556
